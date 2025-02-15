@@ -8,6 +8,9 @@ const ReferHero = () => {
   const [formData, setFormData] = useState({ name: "", email: "", company: "" });
   const [loading, setLoading] = useState(false);
 
+  // Get Backend URL from .env
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -16,9 +19,9 @@ const ReferHero = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/send-email",
+        `${backendUrl}/send-email`,
         formData,
-        { headers: { "Content-Type": "application/json" } } // ✅ Fixed Axios Request
+        { headers: { "Content-Type": "application/json" } }
       );
 
       if (response.status === 200) {
